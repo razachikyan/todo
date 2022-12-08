@@ -1,14 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { ItemState } from "../../../store/item/reducer";
-import { RootState } from "../../../store/reducer";
-import { TaskItem } from "./TaskItem/TaskItem";
+import { TaskItemContainer } from "./TaskItemContainer/TaskItemContainer";
 import styles from "./tasklist.css";
 
-export function Tasklist() {
-    const todos = useSelector<RootState, ItemState[]>(state => state.todoList);
-    const isHided = useSelector<RootState, boolean>(state => state.checked);
-    const isEmpty = useSelector<RootState, boolean>(state => state.isEmpty);
+interface ITaskListProps {
+    isEmpty: boolean;
+    isHided: boolean;
+    todos: ItemState[];
+}
+
+export function TaskList({ isEmpty, isHided, todos }: ITaskListProps) {
     return (
         <div className={styles.container}>
             {isEmpty ? <ul className={styles.list}>
@@ -22,9 +23,9 @@ export function Tasklist() {
                         console.log(todo);
 
                     }).map(todo => {
-                        return <TaskItem key={todo.id} id={todo.id} />
+                        return <TaskItemContainer key={todo.id} id={todo.id} />
                     }) : todos.map(todo => {
-                        return <TaskItem key={todo.id} id={todo.id} />
+                        return <TaskItemContainer key={todo.id} id={todo.id} />
                     })
                 }
             </ul> :

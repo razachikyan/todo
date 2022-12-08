@@ -1,0 +1,16 @@
+import React, { useEffect } from "react";
+import styles from "./header.css";
+import { Checkbox } from "../Customs/Checkbox/Checkbox";
+import { useSelector, useDispatch } from "react-redux"
+import { RootState, setChecked } from "../../../store/reducer";
+import { Header } from "../Header/Header";
+
+export function HeaderContainer() {
+    const checked = useSelector<RootState, boolean>(state => state.checked);
+    const isEmpty = useSelector<RootState, boolean>(state => state.isEmpty);
+    const dispatch = useDispatch();
+    return (
+        <Header checked={checked} isEmpty={isEmpty} onChange={() => dispatch(setChecked(!checked))} />
+    )
+}
+

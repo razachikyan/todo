@@ -35,3 +35,23 @@
     text-transform: capitalize;
     color: #666666;
 }
+
+@media (max-width: 370px) {
+    .descr {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 21px;
+        letter-spacing: 0.2px;
+        text-transform: lowercase;
+        color: #ACACAC;
+    }
+
+    .message {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 27px;
+        letter-spacing: 0.002em;
+        text-transform: lowercase;
+        color: #666666;
+    }
+}

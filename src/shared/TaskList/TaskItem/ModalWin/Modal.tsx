@@ -1,19 +1,19 @@
 import styles from "./modal.css"
-import React, { useEffect, useReducer, useRef } from "react"
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, setIsEmpty, setTodos } from "../../../../../store/reducer";
+import React, { useEffect, useRef } from "react";
 import { ItemState } from "../../../../../store/item/reducer";
 import { setOpenedModal } from "../../../../../store/item/action";
+import { useDispatch } from "react-redux";
 
-export function Modal({ id }: { id: string }) {
-    const todos = useSelector<RootState, ItemState[]>(state => state.todoList);
-    const dispatch = useDispatch();
+interface IModalProps {
+    id: string;
+    todos: ItemState[];
+    onClose: () => void;
+    onCansle: () => void
+}
+
+export function Modal({ id, todos, onClose, onCansle }: IModalProps) {
     const ref = useRef(null);
-    const [todo] = todos.filter(todo => {
-        if (todo.id == id) {
-            return todo
-        }
-    });
+    const dispatch = useDispatch();
     useEffect(() => {
         function handleClick(event: MouseEvent) {
             if (event.target == ref.current) {
@@ -34,21 +34,8 @@ export function Modal({ id }: { id: string }) {
                     Are you sure you want to delete?
                 </p>
                 <div className={styles.controls}>
-                    <button className={styles.btn} onClick={
-                        () => {
-                            dispatch(setTodos(todos.filter((item) => {
-                                if (item.id != todo.id) {
-                                    return item;
-                                }
-                            })));
-                            dispatch(setIsEmpty((todos.length - 1) > 0))
-                        }
-                    }>Yes</button>
-                    <button className={styles.btn} onClick={
-                        () => {
-                            dispatch(setOpenedModal(id, false))
-                        }
-                    }>No</button>
+                    <button className={styles.btn} onClick={onClose}>Yes</button>
+                    <button className={styles.btn} onClick={onCansle}>No</button>
                 </div>
             </div>
         </div>
