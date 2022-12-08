@@ -1,0 +1,58 @@
+.container {
+    max-width: 1170px;
+    margin: 0 auto;
+    margin-top: 56px;
+    padding: 0px 15px;
+}
+
+.inputSuccess,
+.inputError {
+    outline: none;
+    border-radius: 4px;
+    padding: 12px 16px;
+    width: 954px;
+}
+
+.inputSuccess {
+    border: 1px solid #FFCD04;
+}
+
+.inputError {
+    border: 1px solid red;
+}
+
+
+.input::placeholder {
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+
+    text-transform: capitalize;
+
+    color: #DFDFDF;
+}
+
+.name {
+    font-size: 18px;
+    line-height: 27px;
+    color: #174348;
+}
+
+.box {
+    display: flex;
+    gap: 24px;
+}
+
+.button {
+    color: #fff;
+    background-color: #008594;
+    border-radius: 4px;
+    padding: 12px 31.5px;
+}
+
+.err_message {
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: capitalize;
+    color: #FF3104;
+}

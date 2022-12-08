@@ -1,0 +1,32 @@
+.header {
+    margin-top: 150px;
+}
+
+.container {
+    max-width: 1170px;
+    padding: 0px 15px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: flex-end;
+}
+
+.input {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+}
+
+.input__name {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.checkbox_container {
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+}
+
+.checkbox {
+    display: none;
+}
