@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ItemState } from "../../../store/item/reducer";
-import { RootState, setItem, setTodos, setValidated, updateInputValue } from "../../../store/reducer";
+import { RootState, setIsEmpty, setItem, setTodos, setValidated, updateInputValue } from "../../../store/reducer";
 import { generateID } from "../../generateID";
 import styles from "./taskinput.css"
 
@@ -32,12 +32,13 @@ export function TaskInput() {
                     if (value.length > 0 && value.length < 54) {
                         const id = generateID();
                         dispatch(setItem({ text: value.trim(), isDone: false, index: 0, id }));
-                        todos.unshift({ text: value.trim(), isDone: false, index: 0, id });
+                        todos.unshift({ text: value.trim(), isDone: false, index: 0, id, isOpenedModal: false });
                         if (todos.length > 0) {
                             dispatch(setTodos(todos.map((todo, i) => {
                                 todo.index = i;
                                 return todo;
-                            })))
+                            })));
+                            dispatch(setIsEmpty(todos.length > 0));
                         }
                         dispatch(updateInputValue(""));
                     }

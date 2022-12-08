@@ -1,5 +1,12 @@
 import { ActionCreator } from "redux";
 
+export const SET_OPENED_MODAL = "SET_OPENED_MODAL";
+export type setOpenedModalAction = {
+    type: typeof SET_OPENED_MODAL,
+    isOpenedModal: boolean,
+    id: string
+}
+
 export const SET_DONE = "SET_DONE";
 export type setDoneAction = {
     type: typeof SET_DONE,
@@ -20,4 +27,8 @@ export const setDone: ActionCreator<setDoneAction> = (isDone, id) => {
 
 export const setIndex: ActionCreator<setIndexAction> = (index, isDone) => {
     return { type: SET_INDEX, index, isDone }
+}
+
+export const setOpenedModal: ActionCreator<setOpenedModalAction> = (id, isOpenedModal) => {
+    return { type: SET_OPENED_MODAL, isOpenedModal, id }
 }

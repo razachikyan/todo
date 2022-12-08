@@ -6,17 +6,17 @@ import { RootState, setChecked } from "../../../store/reducer";
 
 export function Header() {
     const checked = useSelector<RootState, boolean>(state => state.checked);
-
+    const isEmpty = useSelector<RootState, boolean>(state => state.isEmpty);
     const dispatch = useDispatch();
     return (
         <header className={styles.header}>
-            <div className={styles.container}>
+            {isEmpty ? <div className={styles.container}>
                 <label className={styles.input}>
                     <Checkbox checked={checked} />
                     <input type="checkbox" className={styles.checkbox} onChange={() => dispatch(setChecked(!checked))} checked={!checked} />
                     <span className={styles.input__name}>Hide completed</span>
                 </label>
-            </div>
+            </div> : null}
         </header>
     )
 }

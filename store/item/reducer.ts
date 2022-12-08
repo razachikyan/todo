@@ -1,20 +1,22 @@
 import { Reducer } from "redux";
-import { setDoneAction, setIndexAction, SET_DONE, SET_INDEX } from "./action";
+import { setDoneAction, setIndexAction, setOpenedModalAction, SET_DONE, SET_INDEX, SET_OPENED_MODAL } from "./action";
 
 export type ItemState = {
     isDone: boolean,
     text: string,
     index: number,
-    id: string
+    id: string,
+    isOpenedModal: boolean
 }
 
-export type ItemAction = setDoneAction | setIndexAction;
+export type ItemAction = setDoneAction | setIndexAction | setOpenedModalAction;
 
 const initialItemState = {
     isDone: false,
     text: "",
     index: 0,
-    id: ""
+    id: "",
+    isOpenedModal: false
 }
 
 export const itemReducer: Reducer<ItemState, ItemAction> = (state = initialItemState, action) => {
@@ -31,6 +33,13 @@ export const itemReducer: Reducer<ItemState, ItemAction> = (state = initialItemS
                 ...state,
                 index: action.index,
                 isDone: action.isDone
+            }
+        }
+        case SET_OPENED_MODAL: {
+            return {
+                ...state,
+                isOpenedModal: action.isOpenedModal,
+                id: action.id
             }
         }
         default:

@@ -1,14 +1,21 @@
 import { Reducer } from "redux";
 import { ActionCreator } from "redux";
 import { generateID } from "../src/generateID";
-import { setDoneAction, setIndexAction, SET_DONE, } from "./item/action";
-import { ItemState } from "./item/reducer";
+import { setDoneAction, setIndexAction, setOpenedModalAction, SET_DONE, SET_OPENED_MODAL, } from "./item/action";
+import { itemReducer, ItemState } from "./item/reducer";
 
 export type RootState = {
-    validated: boolean,
+    validated: boolean;
     checked: boolean;
     inputValue: string;
     todoList: ItemState[];
+    isEmpty: boolean
+}
+
+const SET_IS_EMPTY = "SET_IS_EMPTY";
+type setIsEmptyAction = {
+    type: typeof SET_IS_EMPTY,
+    isEmpty: boolean
 }
 
 const SET_VALIDATED = "SET_VALIDATED";
@@ -40,8 +47,9 @@ type setItemAction = {
     type: typeof SET_ITEM;
     isDone: boolean;
     text: string;
-    index: number
-    id: string
+    index: number;
+    id: string;
+    isOpenedModal: boolean;
 }
 
 const todos: ItemState[] = JSON.parse(localStorage.getItem("todoList") ?? "[]");
@@ -51,6 +59,7 @@ const initialState: RootState = {
     checked: false,
     inputValue: "",
     todoList: todos,
+    isEmpty: todos.length > 0
 }
 
 export const setValidated: ActionCreator<setValidatedAction> = (isVlidated => {
@@ -71,9 +80,12 @@ export const setTodos: ActionCreator<setTodosAction> = (todoList) => {
 }
 
 export const setItem: ActionCreator<setItemAction> = (item => {
-    return { type: SET_ITEM, isDone: item.isDone, index: item.index, text: item.text, id: item.id }
+    return { type: SET_ITEM, isDone: item.isDone, index: item.index, text: item.text, id: item.id, isOpenedModal: item.isOpenedModal }
 })
 
+export const setIsEmpty: ActionCreator<setIsEmptyAction> = (isEmpty => {
+    return { type: SET_IS_EMPTY, isEmpty }
+})
 
 type Action = updateInputAction
     | setCheckedAction
@@ -81,7 +93,9 @@ type Action = updateInputAction
     | setItemAction
     | setDoneAction
     | setIndexAction
-    | setValidatedAction;
+    | setValidatedAction
+    | setOpenedModalAction
+    | setIsEmptyAction;
 
 export const rootReducer: Reducer<RootState, Action> = (state = initialState, action) => {
     switch (action.type) {
@@ -109,7 +123,8 @@ export const rootReducer: Reducer<RootState, Action> = (state = initialState, ac
                     isDone: action.isDone,
                     text: action.text,
                     index: action.index,
-                    id: action.id
+                    id: action.id,
+                    isOpenedModal: action.isOpenedModal
                 }].concat(state.todoList),
             }
         }
@@ -122,7 +137,7 @@ export const rootReducer: Reducer<RootState, Action> = (state = initialState, ac
         case SET_DONE: {
             localStorage.setItem("todoList", JSON.stringify(state.todoList.map(item => {
                 if (item.id == action.id) {
-                    return { ...item, isDone: action.isDone }
+                    return itemReducer(item, action)
                 }
                 return item
             })))
@@ -130,10 +145,28 @@ export const rootReducer: Reducer<RootState, Action> = (state = initialState, ac
                 ...state,
                 todoList: state.todoList.map(item => {
                     if (item.id == action.id) {
-                        return { ...item, isDone: action.isDone }
+                        // return { ...item, isDone: action.isDone }
+                        return itemReducer(item, action)
                     }
                     return item
                 })
+            }
+        }
+        case SET_OPENED_MODAL: {
+            return {
+                ...state,
+                todoList: state.todoList.map(item => {
+                    if (item.id == action.id) {
+                        return itemReducer(item, action)
+                    }
+                    return item;
+                })
+            }
+        }
+        case SET_IS_EMPTY: {
+            return {
+                ...state,
+                isEmpty: action.isEmpty
             }
         }
         default:
