@@ -44,13 +44,13 @@ type setItemAction = {
     id: string
 }
 
-const todo = JSON.parse(localStorage.getItem("todoList") ?? "[]");
+const todos: ItemState[] = JSON.parse(localStorage.getItem("todoList") ?? "[]");
 
 const initialState: RootState = {
     validated: true,
     checked: false,
     inputValue: "",
-    todoList: todo,
+    todoList: todos,
 }
 
 export const setValidated: ActionCreator<setValidatedAction> = (isVlidated => {

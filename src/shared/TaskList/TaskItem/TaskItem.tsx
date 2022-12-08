@@ -8,30 +8,36 @@ import { Closer } from "../../Customs/Closer/Closer";
 import styles from "./taskitem.css";
 
 interface ITaskItemProps {
-    index: number
+    index: number,
+    id: string
 }
 
-export function TaskItem({ index }: ITaskItemProps) {
-    const id = useSelector<RootState, string>(state => state.todoList[index].id);
-    const isDone = useSelector<RootState, boolean>(state => state.todoList[index].isDone);
-    const text = useSelector<RootState, string>(state => state.todoList[index].text);
+export function TaskItem({ index, id }: ITaskItemProps) {
     const todos = useSelector<RootState, ItemState[]>(state => state.todoList);
+    const [todo] = todos.filter(todo => {
+        if (todo.id == id) {
+            return todo
+        }
+    })
+    // const isDone = useSelector<RootState, boolean>(state => state.todoList[index].isDone);
+    // const text = useSelector<RootState, string>(state => state.todoList[index].text);
+
     const dispatch = useDispatch();
     return (
         <li className={styles.item}>
             <label className={styles.label}>
-                <Checkbox checked={isDone} />
-                <input type="checkbox" className={styles.checkbox} checked={isDone} onChange={() => {
-                    dispatch(setDone(!isDone, id));
+                <Checkbox checked={todo.isDone} />
+                <input type="checkbox" className={styles.checkbox} checked={todo.isDone} onChange={() => {
+                    dispatch(setDone(!todo.isDone, todo.id));
                 }} />
                 <p className={styles.task}>
-                    {text}
+                    {todo.text}
                 </p>
             </label>
             <Closer onClick={() => {
-                dispatch(setTodos(todos.filter((todo) => {
-                    if (todo.id != id) {
-                        return todo;
+                dispatch(setTodos(todos.filter((item) => {
+                    if (item.id != todo.id) {
+                        return item;
                     }
                 })));
             }} />
