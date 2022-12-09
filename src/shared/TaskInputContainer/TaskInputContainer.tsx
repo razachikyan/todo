@@ -18,7 +18,7 @@ export function TaskInputContainer() {
     return (
         <TaskInput isValidated={isValidated} value={value} onChange={(ev) => {
             dispatch(updateInputValue(ev.target.value));
-            if (ev.target.value.trim().length > 0 && ev.target.value.trim().length < 54) {
+            if (ev.target.value.trim().length < 54) {
                 dispatch(setValidated(true));
             } else {
                 dispatch(setValidated(false));
