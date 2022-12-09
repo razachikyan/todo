@@ -4,7 +4,6 @@ import { ItemState } from "../../../store/item/reducer";
 import { RootState, setIsEmpty, setItem, setTodos, setValidated, updateInputValue } from "../../../store/reducer";
 import { generateID } from "../../generateID";
 import { TaskInput } from "../TaskInput/TaskInput";
-import styles from "./taskinput.css"
 
 
 
@@ -26,7 +25,7 @@ export function TaskInputContainer() {
             }
         }} onClick={(ev) => {
             ev.preventDefault();
-            if (value.length > 0 && value.length < 54) {
+            if (value.trim().length > 0 && value.trim().length < 54) {
                 const id = generateID();
                 dispatch(setItem({ text: value.trim(), isDone: false, index: 0, id }));
                 todos.unshift({ text: value.trim(), isDone: false, index: 0, id, isOpenedModal: false });

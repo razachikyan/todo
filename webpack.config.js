@@ -54,7 +54,6 @@ module.exports = {
    mode: "development",
    entry: {
       main: ["@babel/polyfill", "./index.tsx"],
-      analytics: "./analytics.ts"
    },
    devtool: isDev ? "eval" : "source-map",
    output: {
