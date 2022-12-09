@@ -3,8 +3,8 @@ import "./babel";
 import React from "react";
 import { createRoot } from 'react-dom/client';
 import { createStore } from "redux";
-import { Provider, useSelector } from "react-redux";
-import { rootReducer, RootState } from "../store/reducer";
+import { Provider } from "react-redux";
+import { rootReducer } from "../store/reducer";
 import { composeWithDevTools } from "redux-devtools-extension"
 import { Layout } from "./shared/Layout/Layout"
 import { HeaderContainer } from "./shared/HeaderContainer/HeaderContainer";

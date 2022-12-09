@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./header.css";
 import { Checkbox } from "../Customs/Checkbox/Checkbox";
-import { useSelector, useDispatch } from "react-redux"
-import { RootState, setChecked } from "../../../store/reducer";
 
 interface iHeaderProps {
     isEmpty: boolean,

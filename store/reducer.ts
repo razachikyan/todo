@@ -1,6 +1,5 @@
 import { Reducer } from "redux";
 import { ActionCreator } from "redux";
-import { generateID } from "../src/generateID";
 import { setDoneAction, setIndexAction, setOpenedModalAction, SET_DONE, SET_OPENED_MODAL, } from "./item/action";
 import { itemReducer, ItemState } from "./item/reducer";
 

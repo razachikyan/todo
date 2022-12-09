@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import styles from "./header.css";
-import { Checkbox } from "../Customs/Checkbox/Checkbox";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { RootState, setChecked } from "../../../store/reducer";
 import { Header } from "../Header/Header";

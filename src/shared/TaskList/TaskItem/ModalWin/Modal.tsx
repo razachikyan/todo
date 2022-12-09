@@ -1,17 +1,15 @@
 import styles from "./modal.css"
 import React, { useEffect, useRef } from "react";
-import { ItemState } from "../../../../../store/item/reducer";
 import { setOpenedModal } from "../../../../../store/item/action";
 import { useDispatch } from "react-redux";
 
 interface IModalProps {
     id: string;
-    todos: ItemState[];
     onClose: () => void;
     onCansle: () => void
 }
 
-export function Modal({ id, todos, onClose, onCansle }: IModalProps) {
+export function Modal({ id, onClose, onCansle }: IModalProps) {
     const ref = useRef(null);
     const dispatch = useDispatch();
     useEffect(() => {

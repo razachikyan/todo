@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, setIsEmpty, setTodos } from "../../../../../store/reducer";
 import { ItemState } from "../../../../../store/item/reducer";
@@ -16,7 +16,7 @@ export function ModalContainer({ id }: { id: string }) {
     });
 
     return (
-        <Modal id={id} todos={todos} onClose={
+        <Modal id={id} onClose={
             () => {
                 dispatch(setTodos(todos.filter((item) => {
                     if (item.id != todo.id) {
