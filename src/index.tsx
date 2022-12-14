@@ -1,5 +1,4 @@
 import "./styles/style.css";
-import "./babel";
 import React from "react";
 import { createRoot } from 'react-dom/client';
 import { createStore } from "redux";

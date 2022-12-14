@@ -20,7 +20,6 @@ export function TaskList({ isEmpty, isHided, todos }: ITaskListProps) {
                             todo.index = i - count;
                             return todo;
                         }
-                        console.log(todo);
 
                     }).map(todo => {
                         return <TaskItemContainer key={todo.id} id={todo.id} />

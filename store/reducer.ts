@@ -144,7 +144,6 @@ export const rootReducer: Reducer<RootState, Action> = (state = initialState, ac
                 ...state,
                 todoList: state.todoList.map(item => {
                     if (item.id == action.id) {
-                        // return { ...item, isDone: action.isDone }
                         return itemReducer(item, action)
                     }
                     return item
