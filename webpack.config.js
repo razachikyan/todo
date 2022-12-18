@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
+const { HotModuleReplacementPlugin } = require("webpack");
 
 const optimization = function () {
    const config = { splitChunks: { chunks: "all" } };
@@ -90,7 +91,8 @@ module.exports = {
       },),
       new MiniCssExtractPlugin({
          filename: isDev ? "[name].css" : "[name].[contenthash].css",
-      })
+      }),
+      new HotModuleReplacementPlugin()
    ],
    module: {
       rules: [
@@ -101,7 +103,7 @@ module.exports = {
                options: {
                   publicPath: (resourcePath, context) => {
                      return path.relative(path.dirname(resourcePath), context) + "/";
-                  },
+                  }
                },
             },//css-loader
             {

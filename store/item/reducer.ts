@@ -5,7 +5,7 @@ export type ItemState = {
     isDone: boolean,
     text: string,
     index: number,
-    id: string,
+    readonly id: string,
     isOpenedModal: boolean
 }
 
